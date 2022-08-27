@@ -1,21 +1,18 @@
 import express from 'express';
-//import cors from "cors";
+import cors from "cors";
 
 const server = express();
 
 server.use(express.json())
-//server.use(cors());
+server.use(cors());
 
-const exemplo = {
-    username: "teste",
-    tweet: "testeTexto"
-}
-const tweets = [exemplo]
+const tweets = []
 const users = []
 
 
-server.get('/tweets', function (req, res) {
-    res.send(tweets)
+
+server.get('/sign-up', function (req, res) {
+    res.send(users)
 })
 
 server.post('/sign-up', (req, res) => {
@@ -23,27 +20,31 @@ server.post('/sign-up', (req, res) => {
     console.log("executando o login")
 
     const newUser = {
-        username: req.body.username,
-        avatar: req.body.avatar
+        ...req.body
     }
 
     users.push(newUser)
+    res.send("OK")
+})
 
-    res.send(users)
+server.get('/tweets', function (req, res) {
+    res.send(tweets)
 })
 
 server.post('/tweets', (req, res) => {
 
     console.log("executando a criação de tweet")
 
+    let avatar = (users.find( (e) => e.username === req.body.username)).avatar
+
     const newTweet = {
-        username: req.body.username,
-        tweet: req.body.tweet
+        ...req.body,
+        avatar: avatar
     }
 
     tweets.push(newTweet)
 
-    res.send(tweets)
+    res.send("OK")
 })
 
 
