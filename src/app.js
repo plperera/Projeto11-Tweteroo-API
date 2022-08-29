@@ -28,7 +28,15 @@ server.post('/sign-up', (req, res) => {
 })
 
 server.get('/tweets', function (req, res) {
-    res.send(tweets)
+
+    let arr = []
+    let size = (tweets.length - 1)
+
+    for (let i = size; (i > size - 10) && (i >= 0); i--){
+        arr.push(tweets[i])
+    }
+    
+    res.send(arr)
 })
 
 server.post('/tweets', (req, res) => {
