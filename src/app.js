@@ -33,9 +33,14 @@ server.get('/tweets', function (req, res) {
     let size = (tweets.length - 1)
 
     for (let i = size; (i > size - 10) && (i >= 0); i--){
-        arr.push(tweets[i])
+
+        let avatar = (users.find( (e) => e.username === req.body.username)).avatar
+
+        arr.push({
+            ...tweets[i],
+            avatar: avatar
+        })
     }
-    
     res.send(arr)
 })
 
@@ -43,11 +48,8 @@ server.post('/tweets', (req, res) => {
 
     console.log("executando a criação de tweet")
 
-    let avatar = (users.find( (e) => e.username === req.body.username)).avatar
-
     const newTweet = {
         ...req.body,
-        avatar: avatar
     }
 
     tweets.push(newTweet)
