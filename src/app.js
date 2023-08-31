@@ -9,8 +9,6 @@ server.use(cors());
 const tweets = []
 const users = []
 
-
-
 server.get('/sign-up', function (req, res) {
     res.send(users)
 })
@@ -64,5 +62,5 @@ server.post('/tweets', (req, res) => {
 // })
 
 server.listen(5000, function () {
-    console.log("oi console")
+    console.log("Estou de olho na porta 5000")
 });
